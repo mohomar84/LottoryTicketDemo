@@ -1,5 +1,6 @@
 package com.demo.lottery.ticket.controller;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,7 @@ import com.demo.lottery.ticket.dao.Ticket;
 import com.demo.lottery.ticket.dao.TicketLines;
 import com.demo.lottery.ticket.exception.ResourceNotFoundException;
 import com.demo.lottery.ticket.jpa.TicketRepository;
+import com.demo.lottery.ticket.services.TicketServices;
 
 @RestController
 @RequestMapping("/lottory")
@@ -41,10 +43,20 @@ public class TicketController {
 	}
 	
 	@PostMapping("/ticket")
-	public Ticket createTodo(@Valid @RequestBody Ticket ticket) {
+	public String createTodo(@Valid @RequestBody Ticket ticket) {
 		ticket.setTicketStatus(LottoryConstant.lottory_status_unchecked);
+		for (int i = 0; i < ticket.getTicketLines().size(); i++) {
+			 ticket.getTicketLines().get(i);
+			 ticket.getTicketLines().get(i).setTicketFk(ticket.getTicketId());
+			 TicketServices ticketnumber = new TicketServices();
+			 long ticketnumberSum = ticketnumber.ticketRoles(ticket.getTicketLines().get(0).getLineNo1(),
+					 ticket.getTicketLines().get(0).getLineNo2(),
+					 ticket.getTicketLines().get(0).getLineNo3());
+			 ticket.getTicketLines().get(i).setLineSum(ticketnumberSum);
+		}
+		ticketRepository.save(ticket);
 		
-	    return ticketRepository.save(ticket);
+	    return "Ticket Add";
 	}
 	
 	@PutMapping("/ticket/{id}")
@@ -55,8 +67,6 @@ public class TicketController {
 	            .orElseThrow(() -> new ResourceNotFoundException( id));
 
 		ticket.setTicketStatus(ticketDetails.getTicketStatus());
-		
-
 
 		return ticketRepository.save(ticket);
 
@@ -68,6 +78,11 @@ public class TicketController {
 
 		Ticket ticket = ticketRepository.findById(id)
 	            .orElseThrow(() -> new ResourceNotFoundException( id));
+		if (ticket.getTicketStatus() == LottoryConstant.lottory_status_unchecked) {
+			
+			ticket.setTicketStatus(LottoryConstant.lottory_status_checked);
+			ticketRepository.save(ticket);
+		}
 
 		return ticket.getTicketStatus();
 
