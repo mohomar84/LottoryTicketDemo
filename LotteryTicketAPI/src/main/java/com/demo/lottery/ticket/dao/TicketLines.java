@@ -14,30 +14,30 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-//@JsonIgnoreProperties(value = { "id", "ticket_fk" }, allowGetters = true)
+@JsonIgnoreProperties(value = { "id", "ticketFk" }, allowGetters = true)
 public class TicketLines {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private Long ticket_fk;
+	private Long ticketFk;
 
 	@NotNull
 	// @Pattern(regexp = "[0-2]*")
-	private Long line_no_1;
+	private Long lineNo1;
 
 	@NotNull
 	@Max(1)
-	private Long line_no_2;
+	private Long lineNo2;
 
 	@NotNull
-	private Long line_no_3;
+	private Long lineNo3;
 
-	private Long line_sum;
+	private Long lineSum;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ticket_fk", referencedColumnName = "ticket_id", insertable = false, updatable = false)
+	@JoinColumn(name = "ticketFk", referencedColumnName = "ticketId", insertable = false, updatable = false)
 	private Ticket ticket;
 
 	public TicketLines() {
@@ -52,45 +52,44 @@ public class TicketLines {
 		this.id = id;
 	}
 
-	public Long getTicket_fk() {
-		return ticket_fk;
+	public Long getTicketFk() {
+		return ticketFk;
 	}
 
-	public void setTicket_fk(Long ticket_fk) {
-
-		this.ticket_fk = ticket_fk;
+	public void setTicketFk(Long ticketFk) {
+		this.ticketFk = ticketFk;
 	}
 
-	public Long getLine_no_1() {
-		return line_no_1;
+	public Long getLineNo1() {
+		return lineNo1;
 	}
 
-	public void setLine_no_1(Long line_no_1) {
-		this.line_no_1 = line_no_1;
+	public void setLineNo1(Long lineNo1) {
+		this.lineNo1 = lineNo1;
 	}
 
-	public Long getLine_no_2() {
-		return line_no_2;
+	public Long getLineNo2() {
+		return lineNo2;
 	}
 
-	public void setLine_no_2(Long line_no_2) {
-		this.line_no_2 = line_no_2;
+	public void setLineNo2(Long lineNo2) {
+		this.lineNo2 = lineNo2;
 	}
 
-	public Long getLine_no_3() {
-		return line_no_3;
+	public Long getLineNo3() {
+		return lineNo3;
 	}
 
-	public void setLine_no_3(Long line_no_3) {
-		this.line_no_3 = line_no_3;
+	public void setLineNo3(Long lineNo3) {
+		this.lineNo3 = lineNo3;
 	}
 
-	public Long getLine_sum() {
-		return line_sum;
+	public Long getLineSum() {
+		return lineSum;
 	}
 
-	public void setLine_sum(Long line_sum) {
-		this.line_sum = line_sum;
+	public void setLineSum(Long lineSum) {
+		this.lineSum = lineSum;
 	}
 
 }

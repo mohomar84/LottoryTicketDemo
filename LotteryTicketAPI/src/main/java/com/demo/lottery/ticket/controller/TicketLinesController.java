@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.demo.lottery.ticket.jpa.TicketLinesRepository;
 
 @RestController
-//@RequestMapping("/lottory")
+
 public class TicketLinesController {
 	
 	@Autowired

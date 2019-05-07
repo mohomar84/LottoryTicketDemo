@@ -9,42 +9,53 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 
 
-//@JsonIgnoreProperties(value = { "ticket_id", "ticket_status" })
+
+@JsonIgnoreProperties(value = { "ticket_id", "ticket_status" })
 @Entity
 public class Ticket {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long ticket_id;
+	private Long ticketId;
 
-	private String ticket_status;
+	private String ticketStatus;
 
-	@OneToMany(mappedBy = "ticket_fk",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "ticketFk",fetch = FetchType.EAGER)
 	private List<TicketLines> ticketLines;
 
 	public Ticket() {
 
 	}
 
-	public Long getTicket_id() {
-		return ticket_id;
+
+	public Long getTicketId() {
+		return ticketId;
 	}
 
-	public void setTicket_id(Long ticket_id) {
-		this.ticket_id = ticket_id;
+
+
+	public void setTicketId(Long ticketId) {
+		this.ticketId = ticketId;
 	}
 
-	public String getTicket_status() {
-		return ticket_status;
+
+
+	public String getTicketStatus() {
+		return ticketStatus;
 	}
 
-	public void setTicket_status(String ticket_status) {
-		this.ticket_status = ticket_status;
+
+
+	public void setTicketStatus(String ticketStatus) {
+		this.ticketStatus = ticketStatus;
 	}
+
+
 
 	public List<TicketLines> getTicketLines() {
 		return ticketLines;
